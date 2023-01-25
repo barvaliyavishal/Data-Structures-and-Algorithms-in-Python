@@ -123,11 +123,28 @@ class LinkedList:
 
     def set_value2(self, index, value):
         ans = self.get(index)
-        print(Node)
         if type(ans) == Node:
             ans.value = value
             return True
         return False
+    
+    def remove(self, index):
+        if index < 0  or index >= self.length:
+            return None
+
+        temp = self.head
+        if index == 0:
+            return self.pop_first()
+        elif index == self.length-1:
+            return self.pop()
+        
+        for _ in range(index-1):
+            temp = temp.next
+        if temp.next:
+            node = temp.next
+            temp.next = node.next
+            node.next = None
+            return node
 
         
 
@@ -137,10 +154,9 @@ mylist.append(2)
 mylist.append(3)
 mylist.append(4)
 mylist.append(5)
-mylist.insert(0,-1)
-print("Before Set")
 mylist.print_list()
-print("After  Set")
-mylist.set_value2(5,15)
+mylist.remove(0)
+print("\n\nAfter")
 mylist.print_list()
+
  
