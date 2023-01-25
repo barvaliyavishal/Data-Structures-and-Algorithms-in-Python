@@ -33,6 +33,7 @@ class LinkedList:
             self.tail.next = node
             self.tail = node
             self.length += 1
+        return True
     
 
     def pop(self):
@@ -63,9 +64,20 @@ class LinkedList:
             new_node.next = self.head
             self.head = new_node
         self.length += 1
+        return True
+    
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None
+        self.length -= 1
+        return True
         
 
 mylist = LinkedList(4)
+mylist.pop_first()
 mylist.append(7)
 mylist.append(6)
 print("complete List \n")
@@ -73,4 +85,7 @@ print("Before Prepand")
 mylist.print_list()
 mylist.prepend(1)
 print("\n\n After Prepand \n")
+mylist.print_list()
+mylist.pop_first()
+print("After Popping First")
 mylist.print_list()
