@@ -73,19 +73,74 @@ class LinkedList:
         self.head = self.head.next
         temp.next = None
         self.length -= 1
+        if self.length == 0:
+            self.tail = None
+        return temp
+    
+    def get(self,index):
+        if self.head is None:
+            return None
+        elif index >= self.length or index < 0:
+            return "Index out of bound"
+
+        temp = self.head
+        while index > 0:
+            temp = temp.next
+            index -= 1
+        
+        return temp
+    
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return None
+
+        new_node = Node(value)
+        temp = self.head
+
+        if index == 0:
+            new_node.next = temp
+            self.head = new_node
+
+        elif index == self.length:
+            self.tail.next = new_node
+            self.tail = self.tail.next
+
+        else:
+            for _ in range(index-1):
+                temp = temp.next
+            new_node.next = temp.next
+            temp.next = new_node
+        self.length += 1
+
+    def set_value(self, index, value):
+        if index < 0 or index >= self.length or self.length == 0:
+            return None
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        temp.value = value
         return True
+
+    def set_value2(self, index, value):
+        ans = self.get(index)
+        print(Node)
+        if type(ans) == Node:
+            ans.value = value
+            return True
+        return False
+
         
 
-mylist = LinkedList(4)
-mylist.pop_first()
-mylist.append(7)
-mylist.append(6)
-print("complete List \n")
-print("Before Prepand")
+
+mylist = LinkedList(1)
+mylist.append(2)
+mylist.append(3)
+mylist.append(4)
+mylist.append(5)
+mylist.insert(0,-1)
+print("Before Set")
 mylist.print_list()
-mylist.prepend(1)
-print("\n\n After Prepand \n")
+print("After  Set")
+mylist.set_value2(5,15)
 mylist.print_list()
-mylist.pop_first()
-print("After Popping First")
-mylist.print_list()
+ 
