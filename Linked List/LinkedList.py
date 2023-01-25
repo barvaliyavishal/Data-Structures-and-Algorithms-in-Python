@@ -146,7 +146,23 @@ class LinkedList:
             node.next = None
             return node
 
-        
+    def reverse(self):
+        if self.length <= 1:
+            return None
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        pre = None
+        curr = temp
+        post = temp.next
+
+        while curr:
+            post = curr.next
+            curr.next = pre
+            pre = curr
+            curr = post
+       
 
 
 mylist = LinkedList(1)
@@ -155,8 +171,6 @@ mylist.append(3)
 mylist.append(4)
 mylist.append(5)
 mylist.print_list()
-mylist.remove(0)
 print("\n\nAfter")
+mylist.reverse()
 mylist.print_list()
-
- 
