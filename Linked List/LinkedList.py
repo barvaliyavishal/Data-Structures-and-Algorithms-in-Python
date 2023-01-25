@@ -16,11 +16,20 @@ class LinkedList:
         while temp:
             print(temp.value)
             temp = temp.next
+
+    def append(self,value):
+        if self.tail is None:
+            self(value)
+        else:
+            node = Node(value)
+            self.tail.next = node
+            self.tail = self.tail.next
+        
         
     
 
 mylist = LinkedList(4)
-print(mylist.head.value)
-print(mylist.tail.value)
-print(mylist.length)
+mylist.append(5)
+mylist.append(3)
+mylist.append(6)
 mylist.print_list()
