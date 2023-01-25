@@ -16,20 +16,43 @@ class LinkedList:
         while temp:
             print(temp.value)
             temp = temp.next
+        print("length is : ", self.length)
 
     def append(self,value):
-        if self.tail is None:
-            self(value)
+        node = Node(value)
+        if self.head is None:
+            self.head = node
+            self.tail = node
+            self.length = 1
         else:
-            node = Node(value)
+            
             self.tail.next = node
-            self.tail = self.tail.next
-        
-        
+            self.tail = node
+            self.length += 1
     
+
+    def pop(self):
+        if self.head is None:
+            return 
+        elif self.head == self.tail:
+            self.head = None
+            self.tail = None
+            self.length = 0
+        else:
+            temp = self.head
+            while temp.next != self.tail:
+                temp = temp.next
+            temp.next = None
+            self.tail = temp
+        
 
 mylist = LinkedList(4)
 mylist.append(5)
 mylist.append(3)
 mylist.append(6)
+mylist.pop()
+mylist.append(6)
+print("complete List \n")
 mylist.print_list()
+print("\n Head is : ",mylist.head.value)
+print("\n Tail is : ",mylist.tail.value)
