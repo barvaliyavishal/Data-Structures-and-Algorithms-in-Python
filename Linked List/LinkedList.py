@@ -162,7 +162,6 @@ class LinkedList:
             curr.next = pre
             pre = curr
             curr = post
-       
 
 
 mylist = LinkedList(1)
