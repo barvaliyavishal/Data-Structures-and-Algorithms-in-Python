@@ -83,12 +83,10 @@ class DoublyLinkedList:
             return None
         if index < int(self.length/2):
             temp = self.head
-            print("from first")
             for _ in range(index):
                 temp = temp.next
         else:
             temp = self.tail
-            print("from last")
             for _ in range((self.length-index)-1):
                 temp = temp.prev
 
@@ -159,4 +157,5 @@ mylist.append(7)
 mylist.append(8)
 mylist.append(9)
 mylist.append(10)
-print(mylist.get(4).value)
+print(mylist.set(7,5))
+mylist.print_list()
