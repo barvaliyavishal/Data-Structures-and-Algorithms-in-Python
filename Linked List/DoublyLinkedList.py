@@ -66,7 +66,6 @@ class DoublyLinkedList:
     def pop_first(self):
         if self.length == 0:
             return None
-
         temp = self.head
         if self.length == 1:
             self.head = None
@@ -89,41 +88,31 @@ class DoublyLinkedList:
             temp = self.tail
             for _ in range((self.length-index)-1):
                 temp = temp.prev
-
         return temp
     
     def set(self, index, value):
-        if self.length == 0 or index < 0 or index >= self.length:
-            return None
         node = self.get(index)
-        node.value = value
-        return True
+        if node:
+            node.value = value
+        return node
 
-
-    def insert(self, index,value):
+    def insert1(self, index, value):
         if index < 0 or index > self.length:
             return None
-
-        temp = self.head
-
         if index == 0:
             self.add_first(value)
             return True
-
         elif index == self.length:
-            self.append(value)
+            self.prepend(value)
             return True
-
         node = Node(value)
-        for _ in range(index-1):
-            temp = temp.next
-        node.next = temp.next
-        node.prev = temp
-        temp.next.prev = node
-        temp.next = node
+        before = self.get(index-1)
+        after = before.next
+        node.next = after
+        node.prev = before
+        after.prev = node
+        before.next = node
         self.length += 1
-
-        return True
 
     def remove(self, index):
         if index < 0  or index >= self.length:
@@ -133,9 +122,7 @@ class DoublyLinkedList:
         elif index == self.length-1:
             self.pop()
         else:
-            temp = self.head
-            for _ in range(index-1):
-                temp = temp.next
+            temp = self.get(index-1)
             temp.next.next.prev = temp
             temp.next = temp.next.next
             self.length -= 1
@@ -157,5 +144,7 @@ mylist.append(7)
 mylist.append(8)
 mylist.append(9)
 mylist.append(10)
-print(mylist.set(7,5))
+mylist.insert1(7,10)
+mylist.remove(7)
+mylist.insert1(3,10)
 mylist.print_list()
