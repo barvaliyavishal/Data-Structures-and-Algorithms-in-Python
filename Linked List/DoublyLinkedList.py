@@ -4,7 +4,7 @@ class Node:
         self.next = None
         self.prev = None
 
-class LinkedList:
+class DoublyLinkedList:
     def __init__(self, value):
         node = Node(value)
         self.head = node
@@ -16,42 +16,41 @@ class LinkedList:
         if self.length == 0:
             self.head = node
             self.tail = node
-            self.length = 1
         else:
-            temp = self.head
-            while(temp.next):
-                temp = temp.next
-            temp.next = node
-            node.prev = temp
+            self.tail.next = node
+            node.prev = self.tail
             self.tail = node
-            self.length += 1
+        self.length += 1
+        return True
 
 
     def pop(self):
         if self.length == 0:
             return None
-        elif self.length == 1:
+
+        temp = self.tail
+        if self.length == 1:
             self.head = None
             self.tail = None
-            self.length -= 1
-
         else:
             self.tail = self.tail.prev
             self.tail.next = None
-            self.length -= 1
+            temp.prev = None
+        self.length -= 1
+        return temp
 
 
-    def add_first(self, value):
+    def prepend(self, value):
         node = Node(value)
         if self.length == 0:
             self.head = node
             self.tail = node
-            self.length += 1
         else:
             self.head.prev = node
             node.next = self.head
             self.head = node
-            self.length += 1
+        self.length += 1
+        return True
 
     
     def print_list(self):
@@ -67,18 +66,32 @@ class LinkedList:
     def pop_first(self):
         if self.length == 0:
             return None
+
+        temp = self.head
+        if self.length == 1:
+            self.head = None
+            self.tail = None
         else:
             self.head = self.head.next
             self.head.prev = None
-            self.length -= 1
+            temp.next = None
+        self.length -= 1
+        return temp
 
     def get(self, index):
         if self.length == 0 or index < 0 or index >= self.length:
             return None
+        if index < int(self.length/2):
+            temp = self.head
+            print("from first")
+            for _ in range(index):
+                temp = temp.next
+        else:
+            temp = self.tail
+            print("from last")
+            for _ in range((self.length-index)-1):
+                temp = temp.prev
 
-        temp = self.head
-        for _ in range(index):
-            temp = temp.next
         return temp
     
     def set(self, index, value):
@@ -136,11 +149,14 @@ class LinkedList:
             temp = temp.prev
 
 
-mylist = LinkedList(1)
+mylist = DoublyLinkedList(1)
 mylist.append(2)
 mylist.append(3)
 mylist.append(4)
-
-mylist.print_list()
-print("\n\nReverse \n\n")
-mylist.print_reverse()
+mylist.append(5)
+mylist.append(6)
+mylist.append(7)
+mylist.append(8)
+mylist.append(9)
+mylist.append(10)
+print(mylist.get(4).value)
